@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div th:if="${clientes != null and !clientes.empty}">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Correo</th>
+                    <th>Contraseña</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${clientes}">
+                    <td th:text="${item.correo}"></td>
+                    <td th:text="${item.contrasena}"></td>
+                    <td><a th:href="@{/modificarCliente/} + ${item.idCliente}">Modificar</a></td>
+                    <td><a th:href="@{/eliminarCliente/} + ${item.idCliente}">Eliminar</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${clientes == null or clientes.empty}">
+        No tenemos lista de clientes para mostrar
+    </div>
+        <div>TODO write content</div>
+    </body>
+</html>

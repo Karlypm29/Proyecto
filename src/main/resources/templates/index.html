@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    </header>
+    <h2>Inicio de Sección</h2>
+    <form th:action="@{/reserva}" method="POST">
+            <label>Nombre</label>
+            <input placeholder="nombre" type="text" name="nombre" value="" size="20" />
+            <br>
+            <label>Correo</label>
+            <input placeholder="correo@abc.com" type="email" name="correo" value="" size="15" />
+            <input type="submit" value="Registrar" />
+        </form>
+    <a th:href="@{/nuevoCliente}">Registrarse</a>
+    <br>
+    <br>
+    <br>
+    <a th:href="@{/AdministradorCliente}">Administrar</a>
+    <br>
+    <div>TODO write content</div>
+</body>
+</html>
