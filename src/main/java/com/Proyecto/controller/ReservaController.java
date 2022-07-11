@@ -4,10 +4,6 @@
  */
 package com.Proyecto.controller;
 
-/**
- *
- * @author karly
- */
 import com.Proyecto.domain.Reserva;
 import com.Proyecto.service.ReservaService;
 import lombok.extern.slf4j.Slf4j;

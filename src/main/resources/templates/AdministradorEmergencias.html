@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Administrar Emergencias</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header">
+        </header>
+        <div th:if="${emergencias != null and !emergencias.empty}">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido1</th>
+                    <th>Apellido2</th>
+                    <th>Emergencia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${emergencias}">
+                    <td th:text="${item.nombre}"></td>
+                    <td th:text="${item.apellido1}"></td>
+                    <td th:text="${item.apellido2}"></td>
+                    <td th:text="${item.Emergencia}"></td>
+                    <td><a th:href="@{/modificarEmergencias/} + ${item.idEmergencias}">Modificar</a></td>
+                    <td><a th:href="@{/eliminarEmergencias/} + ${item.idREmergencias}">Eliminar</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${emergencias == null or emergencias.empty}">
+        No tenemos lista de Emergencias para mostrar
+    </div>
+        <footer th:replace="layout/plantilla :: footer">
+    </body>
+</html>

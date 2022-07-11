@@ -14,10 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
-/**
- *
- * @author karly
- */
+
 @Data
 @Entity
 @Table(name="reserva")
