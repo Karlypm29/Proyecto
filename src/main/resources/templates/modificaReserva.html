@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Registro</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header">
+        </header>
+        <h2>Datos del Reserva</h2>
+        <a th:href="@{/reservaGuardar}">Regresar</a>
+        <br>
+        <br>
+        <form th:action="@{/guardarReserva}" method="POST"
+            th:object="${reserva}">
+            <input type="hidden" name="idReserva" th:field="*{idReserva}">
+            <label for="IdCliente">Id del Cliente </label>
+            <input type="text" id="idCliente" name="idCliente" th:field="*{idCliente}">
+            <br>
+            <label for="Nombre">Nombre </label>
+            <input type="text" id="nombre" name="nombre" th:field="*{nombre}">
+            <br>
+            <label for="Apellido1">Primer apellido </label>
+            <input type="text" id="apellido1" name="apellido1" th:field="*{apellido1}">
+            <br>
+            <label for="Apellido2">Segundo apellido </label>
+            <input type="text" id="apellido2" name="apellido2" th:field="*{apellido2}">
+            <br>
+            <label for="Correo">Correo </label>
+            <input type="text" id="correo" name="correo" th:field="*{correo}">
+            <br>
+            <label for="Fecha de Reserva">Fecha de Reserva </label>
+            <input type="text" id="fechaReserva" name="fechaReserva" th:field="*{fechaReserva}">
+            <br>
+            <label for="Descripcion">Descripcion </label>
+            <input type="text" id="descripcion" name="descripcion" th:field="*{descripcion}">
+            <br>
+            
+            <input type="submit" name="Registrar reserva" value="Registrar reserva">
+        </form>
+        <br>
+        <br>
+        <footer th:replace="layout/plantilla :: footer">
+    </body>
+</html>

@@ -1,11 +1,17 @@
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Reservación</title>
         <meta charset="UTF-8">
     </head>
     <body>
+        <header th:replace="layout/plantilla :: header">
+        </header>
         <h1>Reservación</h1>
         <br>
-        <div>TODO write content</div>
+        <a th:href="@{/nuevoReserva}">Realizar Reserva</a>
+        <br>
+        <br>
+        <a th:href="@{/AdministradorReserva}">Administrar Reserva</a>
+        <footer th:replace="layout/plantilla :: footer">
     </body>
 </html>

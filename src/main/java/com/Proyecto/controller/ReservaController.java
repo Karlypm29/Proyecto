@@ -8,8 +8,8 @@ package com.Proyecto.controller;
  *
  * @author karly
  */
-import com.Proyecto.domain.Cliente;
-import com.Proyecto.service.ClienteService;
+import com.Proyecto.domain.Reserva;
+import com.Proyecto.service.ReservaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +20,52 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @Slf4j
 public class ReservaController {
-
-    @PostMapping("/reserva")
-    public String Reserva(Model model) {
+    
+    @Autowired
+    private ReservaService reservaService;
+    
+    
+    
+    @GetMapping("/reservaGuardar")
+    public String ReservaGuardar(Model model) {
+        
         return "Reservacion";
     }
     
-   
+    @PostMapping("/reserva2")
+    public String ReservaRedirecionar(Model model) {
+        
+        return "Reservacion";
+    }
+    
+    @GetMapping("/AdministradorReserva")
+    public String Inicio(Model model){
+        var reservas = reservaService.getReservas();
+        model.addAttribute("reservas", reservas);
+        return "AdministradorReserva";
+    }
+    
+     @GetMapping("/modificarReserva/{idReserva}")
+    public String modificarReserva(Reserva reserva, Model model){
+        reserva = reservaService.getReserva(reserva);
+        model.addAttribute("reserva", reserva);
+        return "modificaReserva";
+    }
+    
+    @GetMapping("/eliminarReserva/{idReserva}")
+    public String eliminarReserva(Reserva reserva){
+        reservaService.delete(reserva);
+        return "redirect:/AdministradorReserva";
+    }
+    
+   @GetMapping("/nuevoReserva")
+    public String nuevoReserva(Reserva reserva) {
+        return "modificaReserva";
+    }
+
+    @PostMapping("/guardarReserva")
+    public String guardarReserva(Reserva reserva) {
+        reservaService.save(reserva);
+        return "redirect:/reservaGuardar";
+    }
 }

@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Administrar Reservaciones</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header">
+        </header>
+        <div th:if="${reservas != null and !reservas.empty}">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido1</th>
+                    <th>Apellido2</th>
+                    <th>Correo</th>
+                    <th>Fecha de reservacion</th>
+                    <th>Descripcion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${reservas}">
+                    <td th:text="${item.nombre}"></td>
+                    <td th:text="${item.apellido1}"></td>
+                    <td th:text="${item.apellido2}"></td>
+                    <td th:text="${item.correo}"></td>
+                    <td th:text="${item.fechaReserva}"></td>
+                    <td th:text="${item.descripcion}"></td>
+                    <td><a th:href="@{/modificarReserva/} + ${item.idReserva}">Modificar</a></td>
+                    <td><a th:href="@{/eliminarReserva/} + ${item.idReserva}">Eliminar</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${reservas == null or reservas.empty}">
+        No tenemos lista de reservas para mostrar
+    </div>
+        <footer th:replace="layout/plantilla :: footer">
+    </body>
+</html>
