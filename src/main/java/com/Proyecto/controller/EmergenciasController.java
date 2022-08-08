@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.Proyecto.controller;
 
 import com.Proyecto.domain.Emergencias;
@@ -24,13 +21,13 @@ public class EmergenciasController {
     @GetMapping("/EmergenciasGuardar")
     public String EmergenciasGuardar(Model model) {
         
-        return "Emergencias";
+        return "EmergenciasList";
     }
     
     @PostMapping("/Emergencias2")
     public String EmergenciasRedirecionar(Model model) {
         
-        return "Emergencias";
+        return "EmergenciasList";
     }
     
     @GetMapping("/AdministradorEmergencias")
@@ -61,7 +58,7 @@ public class EmergenciasController {
     @PostMapping("/guardarEmergencias")
     public String guardarEmergencias(Emergencias emergencias) {
         emergenciaService.save(emergencias);
-        return "redirect:/reservaGuardar";
+        return "redirect:/EmergenciasGuardar";
     }
     
 }
