@@ -28,10 +28,16 @@ public class ReservaController {
         return "Reservacion";
     }
     
-    @PostMapping("/reserva2")
+    @GetMapping("/reserva2")
     public String ReservaRedirecionar(Model model) {
         
         return "Reservacion";
+    }
+    
+    @PostMapping("/index2")
+    public String index2Redirecionar(Model model) {
+        
+        return "index2";
     }
     
     @GetMapping("/AdministradorReserva")

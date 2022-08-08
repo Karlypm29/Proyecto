@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Inicio</title>
-        <meta charset="UTF-8">
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://thymeleaft.org/extras/spring-security">
+    <head th:replace="layout/plantilla :: head">
+        <title>TechShop</title>
     </head>
     <body>
-        <header th:replace="layout/plantilla :: header">
-        </header>
+        <header th:replace="layout/plantilla :: header"/>
         <h2>Inicio de Sección</h2>
-        <form th:action="@{/reserva2}" method="POST">
+        <form th:action="@{/index2}" method="POST">
             <label>Nombre</label>
             <input placeholder="nombre" type="text" name="nombre" value="" size="20" />
             <br>
@@ -21,9 +20,7 @@
         <a th:href="@{/nuevoCliente}">Registrarse</a>
         <br>
             <br>
-                <br>
-                    <a th:href="@{/AdministradorCliente}">Administrar</a>
                     <br>
-                        <footer th:replace="layout/plantilla :: footer">
+                        <footer th:replace="layout/plantilla :: footer"/>
                         </body>
                         </html>

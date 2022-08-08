@@ -1,16 +1,16 @@
 <html>
     <head th:replace="layout/plantilla :: head">
-        <title>Reservacion</title>
+        <title>Foro</title>
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"/>
         </header>
-        <h1>Reservación</h1>
+        <h1>Foros</h1>
         <br>
-        <a th:href="@{/nuevoReserva}">Realizar Reserva</a>
+        <a th:href="@{/nuevoForo}">Ingresar un Foro</a>
         <br>
         <br>
-        <a th:href="@{/AdministradorReserva}">Administrar Reserva</a>
+        <a th:href="@{/AdministradorForo}">Administrar Foro</a>
         <footer th:replace="layout/plantilla :: footer"/>
     </body>
 </html>
