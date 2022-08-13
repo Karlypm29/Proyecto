@@ -1,22 +1,23 @@
-<html>
-    <head th:replace="layout/plantilla :: head">
-        <title>Administrar Reservacion</title>
+<html xmlns:sec="http://thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Golf</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/css/Menu.css}" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <header th:replace="layout/plantilla :: header"/>
-        <div th:if="${reservas != null and !reservas.empty}"/>
-        <h1>Reservaciones</h1>
-        <table border="2">
+        <header th:replace="layout/plantilla :: header">
+        </header>
+        <div th:if="${reservas != null and !reservas.empty}">
+        <table border="1">
             <thead>
                 <tr>
-                    <th>  Nombre</th>
-                    <th>  Apellido1</th>
-                    <th>  Apellido2</th>
+                    <th>Nombre</th>
+                    <th>Apellido1</th>
+                    <th>Apellido2</th>
                     <th>Correo</th>
-                    <th> Fecha de reservacion</th>
+                    <th>Fecha de reservacion</th>
                     <th>Descripcion</th>
-                    <th>Modificar</th>
-                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,6 @@
     <div th:if="${reservas == null or reservas.empty}">
         No tenemos lista de reservas para mostrar
     </div>
-        <footer th:replace="layout/plantilla :: footer"/>
+        <footer th:replace="layout/plantilla :: footer">
     </body>
 </html>

@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.Proyecto.controller;
 
 import com.Proyecto.domain.Emergencias;
@@ -8,10 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-/**
- *
- * @author Jose Ignacio
- */
 public class EmergenciasController {
         @Autowired
     private EmergenciasService emergenciaService;
@@ -21,13 +20,13 @@ public class EmergenciasController {
     @GetMapping("/EmergenciasGuardar")
     public String EmergenciasGuardar(Model model) {
         
-        return "EmergenciasList";
+        return "Emergencias";
     }
     
     @PostMapping("/Emergencias2")
     public String EmergenciasRedirecionar(Model model) {
         
-        return "EmergenciasList";
+        return "Emergencias";
     }
     
     @GetMapping("/AdministradorEmergencias")
@@ -58,7 +57,7 @@ public class EmergenciasController {
     @PostMapping("/guardarEmergencias")
     public String guardarEmergencias(Emergencias emergencias) {
         emergenciaService.save(emergencias);
-        return "redirect:/EmergenciasGuardar";
+        return "redirect:/reservaGuardar";
     }
     
 }

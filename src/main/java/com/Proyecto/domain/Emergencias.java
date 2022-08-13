@@ -22,21 +22,18 @@ public class Emergencias implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEmergencias; 
     
-    int idCliente;
     String nombre;
-    String apellido1;
-    String apellido2;
+    String apellidos;
     String Emergencia;
 
     public Emergencias() {
     }
 
-    public Emergencias(Long idEmergencias, int idCliente, String nombre, String apellido1, String apellido2, String Emergencia) {
+    public Emergencias(Long idEmergencias, String nombre, String apellidos, String Emergencia) {
+
         this.idEmergencias = idEmergencias;
-        this.idCliente = idCliente;
         this.nombre = nombre;
-        this.apellido1 = apellido1;
-        this.apellido2 = apellido2;
+        this.apellidos = apellidos;
         this.Emergencia = Emergencia;
     }
     

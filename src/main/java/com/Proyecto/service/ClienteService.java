@@ -8,18 +8,14 @@ package com.Proyecto.service;
 import com.Proyecto.domain.Cliente;
 import java.util.List;
 
-/**
- *
- * @author Usuario
- */
 public interface ClienteService {
-
+    
     public List<Cliente> getClientes();
-
-    public Cliente getCliente(Cliente producto);
-
-    public void save(Cliente producto);
-
-    public void delete(Cliente producto);
-
+    
+    public Cliente getCliente(Cliente cliente);
+    
+    public void save(Cliente cliente);
+    
+    public void delete(Cliente cliente);
+   
 }
