@@ -1,10 +1,9 @@
-<!DOCTYPE html>
 <html>
     <head th:replace="layout/plantilla :: head">
-        <title>Golf</title>
+        <title>Fragmentocliente</title>
     </head>
     <body>
-         <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
             <div class="container">
                 <div class="row">
                     <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMIN')">   
@@ -19,6 +18,8 @@
                 </div>
             </div>
         </section>
+        
+        
         <section th:fragment="listadoClientes" id="clientes">
             <div class="container">
                 <div class="row">
@@ -64,7 +65,8 @@
                             </div>
                         </div>
                     </div>
-                       <div class="col-md-3">
+                       
+                    <div class="col-md-3">
                         <div class="card text-center bg-danger text-white mb-3">
                             <div class="card-body">
                                 <h3 th:text="#{cliente.limiteTotal}">Límite Total</h3>
@@ -86,6 +88,8 @@
                 </div>
             </div>
         </section>
+        
+        
         <section th:fragment="agregarCliente">
             <div id="agregarCliente" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -126,13 +130,15 @@
                 </div>
             </div>
         </section>
+        
+        
         <section th:fragment="editarCliente">            
             <form method="POST"
                   th:action="@{/cliente/guardar}"
                   th:object="${cliente}"
                   class="was-validated">
                 <input type="hidden" name="idCliente" th:field="*{idCliente}"/>
-                <section th:replace="cliente/fragmentosCliente :: botonesEditar"></section> 
+                <section th:replace="cliente/fragmentosCliente :: botonesEditar"/> 
                 <div id="details">
                     <div class="container">
                         <div class="row">
@@ -169,6 +175,32 @@
                     </div>
                 </div>
             </form>
+        </section>
+                
+                
+        <section th:fragment="botonesEditar">
+            <div id="actions" class="py-4 mb-4 bg-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a th:href="@{/cliente/listado}" class="btn btn-ligth btn-block">
+                                <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-success btn-block">
+                                <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <a th:href="@{/cliente/eliminar/}+${cliente.idCliente}"
+                               class="btn btn-danger btn-block">
+                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
                 
     </body>

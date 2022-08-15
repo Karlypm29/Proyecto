@@ -1,0 +1,175 @@
+<html>
+    <head th:replace="layout/plantilla :: head">
+        <title>Fragmentosoporte</title>
+    </head>
+    <body>
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3" sec:authorize="hasRole('ROLE_USER')">   
+                        <button 
+                            type="button" 
+                            class="btn btn-primary btn-block" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#agregarSoporte">
+                            <i class="fas fa-plus"></i> [[#{accion.agregar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section th:fragment="listadoSoportes" id="soportes">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{soporte.titulo}]]</h4>
+                            </div>
+                            <div th:if="${soportes != null and !soportes.empty}">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{soporte.descripcion}">Descripcion del Problema</th>
+                                            <th th:text="#{soporte.fecha}">Fecha de cuando ocurrio el problema</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="soporte, contador : ${soportes}">
+                                            <td>[[${contador.count}]]</td>
+                                            <td>[[${soporte.descripcion}]]</td>
+                                            <td>[[${soporte.fecha}]]</td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/soporte/eliminar/}+${soporte.idSoporte}"
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{accion.eliminar}]]
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/soporte/modificar/}+${soporte.idSoporte}"
+                                                   class="btn btn-success">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{accion.actualizar}]]
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${soportes == null or soportes.empty}">
+                                <span th:text="#{soporte.no_mostrar}">Lista vacía</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card text-center bg-success text-white mb-3">
+                        <div class="card-body">
+                            <h3 th:text="#{soporte.totalSoportes}">Total Soportes</h3>
+                            <h4 class="display-4">
+                                <i class="fas fa-users"></i> [[${totalSoportes}]]
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section th:fragment="agregarSoporte">
+        <div id="agregarSoporte" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" th:text="#{accion.agregar}">Agregar Soporte</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div> 
+                    <form th:action="@{/soporte/guardar}" th:object="${soporte}"
+                          method="POST" class="was-validated">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="descripcion" th:text="#{soporte.descripcion}">Descripcion del Problema</label>
+                                <input type="text" class="form-control" name="descripcion" required="true">
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha" th:text="#{soporte.fecha}">Fecha</label>
+                                <input type="date" class="form-control" name="fecha" required="true">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit" th:text="#{accion.guardar}">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section th:fragment="editarSoporte">            
+        <form method="POST"
+              th:action="@{/soporte/guardar}"
+              th:object="${soporte}"
+              class="was-validated">
+            <input type="hidden" name="idSoporte" th:field="*{idSoporte}"/>
+            <section th:replace="soporte/fragmentosSoporte :: botonesEditar"/> 
+            <div id="details">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>[[#{accion.actualizar}]]</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="descripcion" th:text="#{soporte.descripcion}">Descripcion del Problema</label>
+                                        <input type="text" class="form-control" name="descripcion" th:field="*{descripcion}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fecha" th:text="#{soporte.fecha}">Fecha</label>
+                                        <input type="date" class="form-control" name="fecha" th:field="*{fecha}">
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+    </section>
+
+
+    <section th:fragment="botonesEditar">
+        <div id="actions" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a th:href="@{/soporte/listado}" class="btn btn-ligth btn-block">
+                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success btn-block">
+                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <a th:href="@{/soporte/eliminar/}+${soporte.idSoporte}"
+                           class="btn btn-danger btn-block">
+                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

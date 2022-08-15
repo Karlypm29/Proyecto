@@ -4,7 +4,9 @@
  */
 package com.Proyecto.service;
 
+import com.Proyecto.dao.ClienteDao;
 import com.Proyecto.dao.ReservaDao;
+import com.Proyecto.domain.Cliente;
 import com.Proyecto.domain.Reserva;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class ReservaServiceImpl implements ReservaService{
     
     @Autowired
     private ReservaDao ReservaDao;
+    
+    @Autowired
+    private ClienteDao clienteDao;
     
     @Override
     @Transactional(readOnly = true)

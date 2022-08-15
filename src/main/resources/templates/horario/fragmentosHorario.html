@@ -1,0 +1,185 @@
+<html>
+    <head th:replace="layout/plantilla :: head">
+        <title>Fragmentohorario</title>
+    </head>
+    <body>
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMIN')">   
+                        <button 
+                            type="button" 
+                            class="btn btn-primary btn-block" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#agregarHorario">
+                            <i class="fas fa-plus"></i> [[#{accion.agregar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section th:fragment="listadoHorarios" id="horarios">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{horario.titulo}]]</h4>
+                            </div>
+                            <div th:if="${horarios != null and !horarios.empty}">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{horario.dia}">Día</th>
+                                            <th th:text="#{horario.abierto}">Abierto de</th>
+                                            <th th:text="#{horario.cerrado}">a</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="horario, contador : ${horarios}">
+                                            <td>[[${contador.count}]]</td>
+                                            <td>[[${horario.dia}]]</td>
+                                            <td>[[${horario.abierto}+' Am']]</td>
+                                            <td>[[${horario.cerrado}+' pm']]</td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/horario/eliminar/}+${horario.idHorario}"
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{accion.eliminar}]]
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/horario/modificar/}+${horario.idHorario}"
+                                                   class="btn btn-success">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{accion.actualizar}]]
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${horarios == null or horarios.empty}">
+                                <span th:text="#{horario.no_mostrar}">Lista vacía</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card text-center bg-success text-white mb-3">
+                        <div class="card-body">
+                            <h3 th:text="#{horario.totalHorarios}">Total Horarios</h3>
+                            <h4 class="display-4">
+                                <i class="fas fa-users"></i> [[${totalHorarios}]]
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section th:fragment="agregarHorario">
+        <div id="agregarHorario" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" th:text="#{accion.agregar}">Agregar Horario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div> 
+                    <form th:action="@{/horario/guardar}" th:object="${horario}"
+                          method="POST" class="was-validated">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="dia" th:text="#{horario.dia}">Dia</label>
+                                <input type="text" class="form-control" name="dia" required="true">
+                            </div>
+                            <div class="form-group">
+                                <label for="abierto" th:text="#{horario.abierto}">abierto</label>
+                                <input type="time" class="form-control" name="abierto" required="true">
+                            </div>
+                            <div class="form-group">
+                                <label for="cerrado" th:text="#{horario.cerrado}">cerrado</label>
+                                <input type="time" class="form-control" name="cerrado" required="true">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit" th:text="#{accion.guardar}">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section th:fragment="editarHorario">            
+        <form method="POST"
+              th:action="@{/horario/guardar}"
+              th:object="${horario}"
+              class="was-validated">
+            <input type="hidden" name="idHorario" th:field="*{idHorario}"/>
+            <section th:replace="horario/fragmentosHorario :: botonesEditar"/> 
+            <div id="details">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>[[#{accion.actualizar}]]</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="dia" th:text="#{horario.dia}">Dia</label>
+                                        <input type="text" class="form-control" name="dia" th:field="*{dia}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="abierto" th:text="#{horario.abierto}">abierto</label>
+                                        <input type="time" class="form-control" name="abierto" th:field="*{abierto}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cerrado" th:text="#{horario.cerrado}">cerrado</label>
+                                        <input type="time" class="form-control" name="cerrado" th:field="*{cerrado}">
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+    </section>
+
+
+    <section th:fragment="botonesEditar">
+        <div id="actions" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a th:href="@{/horario/listado}" class="btn btn-ligth btn-block">
+                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success btn-block">
+                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <a th:href="@{/horario/eliminar/}+${horario.idHorario}"
+                           class="btn btn-danger btn-block">
+                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

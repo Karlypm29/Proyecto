@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://thymeleaf.org/extras/spring-security">
+    <head th:replace="layout/plantilla :: head">
+        <title>Club Golf</title>
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header" />
+
+        <section th:replace="foro/fragmentosForo :: botonesAgregar"/>
+        <section th:replace="foro/fragmentosForo :: agregarForo"/>
+        <section th:replace="foro/fragmentosForo :: listadoForos"/>
+
+        <footer th:replace="layout/plantilla :: footer" />
+    </body>
+</html>

@@ -1,39 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:sec="http://thymeleaf.org/extras/spring-security">
-    <head>
-        <title>Golf</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link th:href="@{/css/Menu.css}" rel="stylesheet" type="text/css"/>
+    <head th:replace="layout/plantilla :: head">
+        <title>Club Golf</title>
     </head>
     <body>
-        <header th:replace="layout/plantilla :: header">
-        </header>
-        <div th:if="${emergencias != null and !emergencias.empty}">
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellido1</th>
-                    <th>Apellido2</th>
-                    <th>Emergencia</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="item : ${emergencias}">
-                    <td th:text="${item.nombre}"></td>
-                    <td th:text="${item.apellido1}"></td>
-                    <td th:text="${item.apellido2}"></td>
-                    <td th:text="${item.Emergencia}"></td>
-                    <td><a th:href="@{/modificarEmergencias/} + ${item.idEmergencias}">Modificar</a></td>
-                    <td><a th:href="@{/eliminarEmergencias/} + ${item.idREmergencias}">Eliminar</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div th:if="${emergencias == null or emergencias.empty}">
-        No tenemos lista de Emergencias para mostrar
-    </div>
-        <footer th:replace="layout/plantilla :: footer">
+        <header th:replace="layout/plantilla :: header" />
+
+        <section th:replace="emergencia/fragmentosEmergencia :: botonesAgregar"/>
+        <section th:replace="emergencia/fragmentosEmergencia :: agregarEmergencia"/>
+        <section th:replace="emergencia/fragmentosEmergencia :: listadoEmergencias"/>
+
+        <footer th:replace="layout/plantilla :: footer" />
     </body>
 </html>

@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.Proyecto.service;
 
 /**
  *
- * @author Jose Ignacio
+ * @author Karly Madrigal
  */
 import com.Proyecto.dao.ArticuloDao;
 import com.Proyecto.domain.Articulo;
@@ -20,36 +17,30 @@ import org.springframework.transaction.annotation.Transactional;
 public class ArticuloServiceImpl implements ArticuloService{
    
     @Autowired
-    private ArticuloDao articuloDao;
-    
+    private ArticuloDao ArticuloDao;
+
     @Override
     @Transactional(readOnly = true)
-    public List<Articulo> getArticulos(boolean activo) {
-        var lista = (List<Articulo>)articuloDao.findAll();
-        
-        if(activo){
-            lista.removeIf(e -> !e.isActivo());
-        }
-        
-        return lista; 
+    public List<Articulo> getArticulos() {
+        return (List<Articulo>) ArticuloDao.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Articulo getArticulo(Articulo articulo) {
-        return articuloDao.findById(articulo.getIdArticulo()).orElse(null);
+        return ArticuloDao.findById(articulo.getIdArticulo()).orElse(null);
     }
     
     @Override
     @Transactional
     public void save(Articulo articulo) {
-        articuloDao.save(articulo);
+        ArticuloDao.save(articulo);
     }
 
     @Override
     @Transactional
     public void delete(Articulo articulo) {
-        articuloDao.delete(articulo);
+        ArticuloDao.delete(articulo);
     }
     
 }

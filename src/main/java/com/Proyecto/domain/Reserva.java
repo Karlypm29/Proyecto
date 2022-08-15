@@ -26,30 +26,37 @@ public class Reserva implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idReserva; //Si lo ponemos asi idReserva lo que pasa que esa C en mauscula pasaa minuscula
                             //y sepone un guio entonces queda asi id_reserva
-    int idCliente;
     String nombre;
-    String apellido1;
-    String apellido2;
+    String apellidos;
     String Correo;
-    Date fechaReserva;
+    String fechaReserva;
     String descripcion;
     
 //    @JoinColumn(name="id_cliente", referencedColumnName = "id_cliente")
 //    @ManyToOne
 //    private Cliente cliente;
+    
     public Reserva() {
     }
 
-    public Reserva(int idCliente, String nombre, String apellido1, String apellido2, String Correo, Date fechaReserva, String descripcion) {
-        this.idCliente = idCliente;
+    public Reserva(String nombre, String apellidos, String Correo, String fechaReserva, String descripcion) {
         this.nombre = nombre;
-        this.apellido1 = apellido1;
-        this.apellido2 = apellido2;
+        this.apellidos = apellidos;
         this.Correo = Correo;
         this.fechaReserva = fechaReserva;
         this.descripcion = descripcion;
     }
 
+//    public Reserva(String nombre, String apellidos, String Correo, String fechaReserva, String descripcion, Cliente cliente) {
+//        this.nombre = nombre;
+//        this.apellidos = apellidos;
+//        this.Correo = Correo;
+//        this.fechaReserva = fechaReserva;
+//        this.descripcion = descripcion;
+//        this.cliente = cliente;
+//    }
+
+    
     
     
 }

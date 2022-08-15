@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface ArticuloService {
     
-    public List<Articulo> getArticulos(boolean activo);
+    public List<Articulo> getArticulos();
     
     public Articulo getArticulo(Articulo articulo);
     

@@ -1,0 +1,175 @@
+<html>
+    <head th:replace="layout/plantilla :: head">
+        <title>Fragmentoforo</title>
+    </head>
+    <body>
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3" sec:authorize="hasRole('ROLE_USER')">   
+                        <button 
+                            type="button" 
+                            class="btn btn-primary btn-block" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#agregarForo">
+                            <i class="fas fa-plus"></i> [[#{accion.agregar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section th:fragment="listadoForos" id="foros">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{foro.titulo}]]</h4>
+                            </div>
+                            <div th:if="${foros != null and !foros.empty}">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{foro.tituloforo}">Titulo de Foro</th>
+                                            <th th:text="#{foro.descripcionforo}">Descripcion</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="foro, contador : ${foros}">
+                                            <td>[[${contador.count}]]</td>
+                                            <td>[[${foro.titulo}]]</td>
+                                            <td>[[${foro.descripcion}]]</td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/foro/eliminar/}+${foro.idForo}"
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{accion.eliminar}]]
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/foro/modificar/}+${foro.idForo}"
+                                                   class="btn btn-success">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{accion.actualizar}]]
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${foros == null or foros.empty}">
+                                <span th:text="#{foro.no_mostrar}">Lista vacía</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card text-center bg-success text-white mb-3">
+                        <div class="card-body">
+                            <h3 th:text="#{foro.totalForos}">Total Foros</h3>
+                            <h4 class="display-4">
+                                <i class="fas fa-users"></i> [[${totalForos}]]
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section th:fragment="agregarForo">
+        <div id="agregarForo" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" th:text="#{accion.agregar}">Agregar Foro</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div> 
+                    <form th:action="@{/foro/guardar}" th:object="${foro}"
+                          method="POST" class="was-validated">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="titulo" th:text="#{foro.tituloforo}">Titulo del Foro</label>
+                                <input type="text" class="form-control" name="titulo" required="true">
+                            </div>
+                            <div class="form-group">
+                                <label for="descripcion" th:text="#{foro.descripcionforo}">Descripcion</label>
+                                <input type="text" class="form-control" name="descripcion" required="true">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit" th:text="#{accion.guardar}">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section th:fragment="editarForo">            
+        <form method="POST"
+              th:action="@{/foro/guardar}"
+              th:object="${foro}"
+              class="was-validated">
+            <input type="hidden" name="idForo" th:field="*{idForo}"/>
+            <section th:replace="foro/fragmentosForo :: botonesEditar"/> 
+            <div id="details">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>[[#{accion.actualizar}]]</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="titulo" th:text="#{foro.tituloforo}">Titulo del Foro</label>
+                                        <input type="text" class="form-control" name="titulo" th:field="*{titulo}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descripcion" th:text="#{foro.descripcionforo}">Descripcion</label>
+                                        <input type="text" class="form-control" name="descripcion" th:field="*{descripcion}">
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+    </section>
+
+
+    <section th:fragment="botonesEditar">
+        <div id="actions" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a th:href="@{/foro/listado}" class="btn btn-ligth btn-block">
+                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success btn-block">
+                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <a th:href="@{/foro/eliminar/}+${foro.idForo}"
+                           class="btn btn-danger btn-block">
+                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
